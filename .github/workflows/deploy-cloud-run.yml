@@ -30,17 +30,6 @@ jobs:
           IMAGE_BACKEND=${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.ARTIFACT_REPO }}/backend:${{ github.sha }}
           gcloud run deploy lexguard-backend --image $IMAGE_BACKEND --region ${{ secrets.GCP_REGION }} --platform managed --allow-unauthenticated --set-env-vars PORT=8080
 
-      - name: Build & push frontend image
+      - name: Output URL
         run: |
-          IMAGE_FRONTEND=${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.ARTIFACT_REPO }}/frontend:${{ github.sha }}
-          gcloud builds submit --tag $IMAGE_FRONTEND frontend
-
-      - name: Deploy frontend to Cloud Run
-        run: |
-          IMAGE_FRONTEND=${{ secrets.GCP_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.ARTIFACT_REPO }}/frontend:${{ github.sha }}
-          gcloud run deploy lexguard-frontend --image $IMAGE_FRONTEND --region ${{ secrets.GCP_REGION }} --platform managed --allow-unauthenticated
-
-      - name: Output URLs
-        run: |
-          echo "Backend: $(gcloud run services describe lexguard-backend --region=${{ secrets.GCP_REGION }} --format='value(status.url)')"
-          echo "Frontend: $(gcloud run services describe lexguard-frontend --region=${{ secrets.GCP_REGION }} --format='value(status.url)')"
+          echo "LexGuard URL: $(gcloud run services describe lexguard-backend --region=${{ secrets.GCP_REGION }} --format='value(status.url)')"
