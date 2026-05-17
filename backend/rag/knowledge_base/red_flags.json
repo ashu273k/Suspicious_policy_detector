@@ -1,0 +1,93 @@
+[
+  {
+    "clause_type": "NON_COMPETE",
+    "pattern": "worldwide non-compete with no time limitation",
+    "severity": "CRITICAL",
+    "red_flags": ["worldwide", "perpetual", "any business", "in any capacity"],
+    "description": "Overly broad non-compete that prevents working in any related field globally with no expiration"
+  },
+  {
+    "clause_type": "NON_COMPETE",
+    "pattern": "non-compete extending to all industries",
+    "severity": "HIGH",
+    "red_flags": ["any industry", "any field", "regardless of relation"],
+    "description": "Non-compete scope extends beyond the employer's actual business area"
+  },
+  {
+    "clause_type": "IP_ASSIGNMENT",
+    "pattern": "assignment of all work including personal projects",
+    "severity": "CRITICAL",
+    "red_flags": ["all inventions", "whether or not related", "during or outside working hours", "at any time"],
+    "description": "IP clause captures personal projects and pre-existing work"
+  },
+  {
+    "clause_type": "IP_ASSIGNMENT",
+    "pattern": "moral rights waiver",
+    "severity": "HIGH",
+    "red_flags": ["waive all moral rights", "irrevocably", "in perpetuity"],
+    "description": "Requires waiver of moral rights to creative works"
+  },
+  {
+    "clause_type": "ARBITRATION",
+    "pattern": "one-sided mandatory arbitration",
+    "severity": "HIGH",
+    "red_flags": ["company's sole discretion", "company-selected arbitrator", "employee bears all costs"],
+    "description": "Arbitration process controlled entirely by the company"
+  },
+  {
+    "clause_type": "ARBITRATION",
+    "pattern": "class action waiver",
+    "severity": "HIGH",
+    "red_flags": ["waive right to class action", "waive right to jury trial", "individual basis only"],
+    "description": "Prevents joining class actions against the company"
+  },
+  {
+    "clause_type": "DATA_COLLECTION",
+    "pattern": "unlimited data sharing with third parties",
+    "severity": "CRITICAL",
+    "red_flags": ["share with any third party", "affiliates and partners", "for any purpose", "without notice"],
+    "description": "Allows unrestricted sharing of personal data without consent"
+  },
+  {
+    "clause_type": "DATA_COLLECTION",
+    "pattern": "indefinite data retention",
+    "severity": "HIGH",
+    "red_flags": ["retain indefinitely", "no obligation to delete", "in perpetuity"],
+    "description": "No limits on how long personal data is kept"
+  },
+  {
+    "clause_type": "AUTO_RENEWAL",
+    "pattern": "auto-renewal with no opt-out notice",
+    "severity": "HIGH",
+    "red_flags": ["automatically renew", "no notice required", "irrevocable"],
+    "description": "Contract auto-renews with no mechanism to cancel"
+  },
+  {
+    "clause_type": "TERMINATION",
+    "pattern": "unilateral termination without cause",
+    "severity": "HIGH",
+    "red_flags": ["terminate at any time", "without cause", "without notice", "sole discretion"],
+    "description": "Company can terminate without reason while employee cannot"
+  },
+  {
+    "clause_type": "LIABILITY_LIMIT",
+    "pattern": "unlimited liability for employee",
+    "severity": "CRITICAL",
+    "red_flags": ["unlimited liability", "employee shall be liable for all", "no cap on damages"],
+    "description": "No cap on employee's financial liability while company's liability is limited"
+  },
+  {
+    "clause_type": "PAYMENT_PENALTY",
+    "pattern": "excessive penalties and forfeiture",
+    "severity": "CRITICAL",
+    "red_flags": ["forfeit all compensation", "repay all", "liquidated damages exceeding", "penalty of"],
+    "description": "Disproportionate financial penalties for breach or early termination"
+  },
+  {
+    "clause_type": "INDEMNIFICATION",
+    "pattern": "one-sided indemnification",
+    "severity": "HIGH",
+    "red_flags": ["employee shall indemnify", "hold harmless", "defend at own expense", "regardless of fault"],
+    "description": "Employee must cover company's legal costs regardless of who is at fault"
+  }
+]

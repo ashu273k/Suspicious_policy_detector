@@ -1,0 +1,62 @@
+[
+  {
+    "clause_type": "NON_COMPETE",
+    "text": "Employee agrees not to engage in competing business activities within the same metropolitan area for a period of 12 months following termination of employment.",
+    "is_fair": true,
+    "notes": "Reasonable geographic and time scope"
+  },
+  {
+    "clause_type": "NON_DISCLOSURE",
+    "text": "Employee shall not disclose confidential business information obtained during employment for a period of 2 years after termination. Confidential information specifically excludes publicly available information and the employee's general skills and knowledge.",
+    "is_fair": true,
+    "notes": "Clear definition with reasonable carve-outs"
+  },
+  {
+    "clause_type": "ARBITRATION",
+    "text": "Any disputes arising under this agreement shall be resolved through binding arbitration administered by the American Arbitration Association, with each party bearing their own costs. The arbitration shall take place in a mutually agreed location.",
+    "is_fair": true,
+    "notes": "Balanced cost sharing and venue selection"
+  },
+  {
+    "clause_type": "IP_ASSIGNMENT",
+    "text": "Employee assigns to the Company all rights to inventions and works created within the scope of employment and using Company resources. Employee retains all rights to inventions created on personal time without use of Company resources.",
+    "is_fair": true,
+    "notes": "Clear scope limitation with side-project carve-out"
+  },
+  {
+    "clause_type": "TERMINATION",
+    "text": "Either party may terminate this agreement with 30 days written notice. Upon termination, the Company shall pay all accrued but unpaid compensation within 14 business days.",
+    "is_fair": true,
+    "notes": "Mutual termination rights with clear payment terms"
+  },
+  {
+    "clause_type": "DATA_COLLECTION",
+    "text": "The Company collects only the personal data necessary for employment administration. Data is retained for the duration of employment plus 1 year. Employees may request access to, correction of, or deletion of their personal data at any time.",
+    "is_fair": true,
+    "notes": "GDPR-compliant with clear rights"
+  },
+  {
+    "clause_type": "LIABILITY_LIMIT",
+    "text": "Neither party's total liability under this agreement shall exceed the total fees paid or payable in the 12 months preceding the claim. This limitation does not apply to breaches of confidentiality or indemnification obligations.",
+    "is_fair": true,
+    "notes": "Mutual cap with reasonable exceptions"
+  },
+  {
+    "clause_type": "AUTO_RENEWAL",
+    "text": "This agreement shall automatically renew for successive one-year terms unless either party provides written notice of non-renewal at least 60 days before the end of the current term.",
+    "is_fair": true,
+    "notes": "Reasonable notice period for opt-out"
+  },
+  {
+    "clause_type": "PAYMENT_PENALTY",
+    "text": "Late payments shall accrue interest at a rate of 1.5% per month or the maximum rate permitted by law, whichever is lower. A grace period of 15 business days applies before late fees are assessed.",
+    "is_fair": true,
+    "notes": "Capped penalty rate with grace period"
+  },
+  {
+    "clause_type": "INDEMNIFICATION",
+    "text": "Each party shall indemnify the other against third-party claims arising from the indemnifying party's breach of this agreement, negligence, or willful misconduct.",
+    "is_fair": true,
+    "notes": "Mutual indemnification limited to fault-based claims"
+  }
+]
