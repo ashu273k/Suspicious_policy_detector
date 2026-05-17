@@ -1,0 +1,14 @@
+.git
+.github
+venv
+backend/__pycache__
+frontend/node_modules
+frontend/dist
+data/chroma_db
+data/reports
+data/uploads
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+.env
