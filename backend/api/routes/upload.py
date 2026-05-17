@@ -10,9 +10,12 @@ from fastapi import APIRouter, UploadFile, File, HTTPException
 from config import UPLOAD_DIR
 from ingestion.parser import parse_document
 from ingestion.preprocessor import preprocess
-from api.schemas import UploadResponse
+from api.schemas import UploadResponse, UploadTextRequest
 
 router = APIRouter()
+
+MAX_UPLOAD_BYTES = 25 * 1024 * 1024
+MAX_PASTE_CHARS = 100_000
 
 # In-memory document store (replace with DB in production)
 documents = {}
@@ -26,7 +29,11 @@ async def upload_document(file: UploadFile = File(...)):
     """
     # Validate file type
     allowed_types = {".pdf", ".docx", ".doc", ".txt"}
-    ext = Path(file.filename).suffix.lower()
+    if not file.filename:
+        raise HTTPException(status_code=400, detail="Filename is required")
+
+    safe_name = Path(file.filename).name
+    ext = Path(safe_name).suffix.lower()
 
     if ext not in allowed_types:
         raise HTTPException(
@@ -42,7 +49,13 @@ async def upload_document(file: UploadFile = File(...)):
     try:
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
+
+        if file_path.stat().st_size > MAX_UPLOAD_BYTES:
+            file_path.unlink(missing_ok=True)
+            raise HTTPException(status_code=413, detail="Uploaded file is too large")
     except Exception as e:
+        if isinstance(e, HTTPException):
+            raise
         raise HTTPException(status_code=500, detail=f"Failed to save file: {e}")
 
     # Parse document
@@ -59,7 +72,7 @@ async def upload_document(file: UploadFile = File(...)):
     # Store document metadata and text
     documents[doc_id] = {
         "id": doc_id,
-        "filename": file.filename,
+        "filename": safe_name,
         "file_path": str(file_path),
         "text": cleaned_text,
         "page_count": parsed["page_count"],
@@ -69,7 +82,7 @@ async def upload_document(file: UploadFile = File(...)):
 
     return UploadResponse(
         document_id=doc_id,
-        filename=file.filename,
+        filename=safe_name,
         page_count=parsed["page_count"],
         char_count=len(cleaned_text),
         status="uploaded",
@@ -84,15 +97,15 @@ def get_document(doc_id: str) -> dict:
 
 
 @router.post("/upload_text", response_model=UploadResponse)
-async def upload_text(payload: dict):
+async def upload_text(payload: UploadTextRequest):
     """
     Upload raw contract text (paste). Expects JSON: {"text": "...", "filename": "optional name"}
     """
-    text = payload.get("text")
-    filename = payload.get("filename", "pasted_contract.txt")
+    text = payload.text
+    filename = Path(payload.filename).name or "pasted_contract.txt"
 
-    if not text or not isinstance(text, str) or len(text.strip()) == 0:
-        raise HTTPException(status_code=400, detail="No contract text provided")
+    if len(text) > MAX_PASTE_CHARS:
+        raise HTTPException(status_code=413, detail="Pasted text is too large")
 
     # Generate unique document ID
     doc_id = str(uuid.uuid4())[:12]

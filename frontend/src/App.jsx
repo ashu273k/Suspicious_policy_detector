@@ -6,6 +6,9 @@ import ClauseDetail from './pages/ClauseDetail'
 function App() {
   return (
     <Router>
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
       <div className="app-container">
         {/* Navigation */}
         <nav className="navbar">
@@ -34,11 +37,13 @@ function App() {
         </nav>
 
         {/* Routes */}
-        <Routes>
-          <Route path="/" element={<Upload />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/clause/:clauseId" element={<ClauseDetail />} />
-        </Routes>
+        <main id="main-content" tabIndex={-1}>
+          <Routes>
+            <Route path="/" element={<Upload />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/clause/:clauseId" element={<ClauseDetail />} />
+          </Routes>
+        </main>
       </div>
     </Router>
   )

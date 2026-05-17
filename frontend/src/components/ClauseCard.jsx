@@ -21,7 +21,13 @@ export default function ClauseCard({ clause, analysis, severity, index, onClick 
       onClick={onClick}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => e.key === 'Enter' && onClick?.()}
+      aria-label={`Open clause ${clause?.clause_id || index + 1} details`}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault()
+          onClick?.()
+        }
+      }}
     >
       {/* Severity bar */}
       <div className={`clause-card-severity ${severity?.toLowerCase() || 'none'}`} />

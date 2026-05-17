@@ -78,6 +78,13 @@ export default function Upload() {
     if (droppedFile) handleFile(droppedFile)
   }, [handleFile])
 
+  const handleUploadZoneKeyDown = useCallback((e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      handleBrowse()
+    }
+  }, [handleBrowse])
+
   const handleDragOver = useCallback((e) => {
     e.preventDefault()
     setDragOver(true)
@@ -172,11 +179,17 @@ export default function Upload() {
               onClick={handleBrowse}
               role="button"
               tabIndex={0}
+              onKeyDown={handleUploadZoneKeyDown}
+              aria-label="Upload a contract file"
+              aria-describedby="upload-help"
               id="upload-zone"
             >
               <span className="upload-icon">📄</span>
               <h2 className="upload-title">Drop your contract here</h2>
               <p className="upload-subtitle">or click to browse files</p>
+              <p id="upload-help" className="sr-only">
+                Press Enter or Space to open the file picker. You can upload PDF, DOCX, DOC, or TXT files.
+              </p>
               <div className="upload-formats">
                 <span className="format-tag">PDF</span>
                 <span className="format-tag">DOCX</span>
@@ -197,6 +210,7 @@ export default function Upload() {
                 className="btn btn-ghost"
                 onClick={() => setPasteMode((p) => !p)}
                 style={{ marginTop: 12 }}
+                type="button"
               >
                 {pasteMode ? 'Use file upload' : 'Or paste contract text'}
               </button>
@@ -209,6 +223,7 @@ export default function Upload() {
                 style={{ marginTop: 16 }}
               >
                 <textarea
+                  aria-label="Pasted contract text"
                   placeholder="Paste contract text here..."
                   value={pastedText}
                   onChange={(e) => setPastedText(e.target.value)}
@@ -216,7 +231,7 @@ export default function Upload() {
                   style={{ width: '100%', padding: 12, borderRadius: 8, border: '1px solid var(--border)' }}
                 />
                 <div style={{ marginTop: 8, textAlign: 'right' }}>
-                  <button className="btn" onClick={handlePasteSubmit}>Analyze pasted text</button>
+                  <button className="btn" onClick={handlePasteSubmit} type="button">Analyze pasted text</button>
                 </div>
               </motion.div>
             )}
@@ -240,6 +255,13 @@ export default function Upload() {
                 ⚠️ {error}
               </motion.div>
             )}
+
+            <div className="sr-only" aria-live="polite" aria-atomic="true">
+              {status === 'uploading' && 'Uploading document.'}
+              {status === 'analyzing' && 'Analyzing document.'}
+              {status === 'done' && 'Analysis complete.'}
+              {status === 'error' && (error || 'An error occurred.')}
+            </div>
           </motion.div>
         ) : (
           <motion.div

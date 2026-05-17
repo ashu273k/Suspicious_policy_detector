@@ -46,6 +46,11 @@ class CompareRequest(BaseModel):
     document_id_2: str = Field(..., description="Second document ID")
 
 
+class UploadTextRequest(BaseModel):
+    text: str = Field(..., min_length=1, description="Raw contract text")
+    filename: str = Field(default="pasted_contract.txt", description="Optional filename for metadata")
+
+
 # ── Response Schemas ─────────────────────────────────────────────────────────
 
 class UploadResponse(BaseModel):

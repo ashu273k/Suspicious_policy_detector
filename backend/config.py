@@ -18,6 +18,14 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.1-8b-instant")
 HF_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
 
+
+def _parse_csv_env(name: str, default: list[str]) -> list[str]:
+    raw = os.getenv(name)
+    if not raw:
+        return default
+    values = [item.strip() for item in raw.split(",") if item.strip()]
+    return values or default
+
 # ── Risk Scoring Weights ─────────────────────────────────────────────────────
 RISK_WEIGHTS = {
     "CRITICAL": 40,
@@ -53,3 +61,4 @@ CORS_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:5173",
 ]
+CORS_ORIGINS = _parse_csv_env("CORS_ORIGINS", CORS_ORIGINS)
